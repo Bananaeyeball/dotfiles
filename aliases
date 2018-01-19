@@ -15,7 +15,11 @@ alias ctg='ctags -R --exclude=.git --exclude=log -f tmp/tags *'
 
 
 alias fmo='xdg-open .'
-alias o='xdg-open'
+if which xdg-open &>/dev/null ; then
+  alias o='xdg-open'
+else
+  alias o='open'
+fi
 
 alias oc="xdg-open coverage/index.html"
 
@@ -51,12 +55,16 @@ compdef -e 'words[1]=(service); service=service; (( CURRENT+=2 )); _services' ss
 alias ns='netstat -tulpn'
 
 n(){
-local fname
-# fname=$(find ~/Dropbox/Notes/ -iname "*$1*" | sort -n -s | head -n1)
-fname=$(find ~/Dropbox/Notes/ -iname "*$1*" | awk '{ print length($0) " " $0; }' | sort -n | awk '$0=$2' | head -n1)
-v $fname
+  local fname
+  # fname=$(find ~/Dropbox/Notes/ -iname "*$1*" | sort -n -s | head -n1)
+  fname=$(find ~/Notes/ -iname "*$1*" | awk '{ print length($0) " " $0; }' | sort -n | awk '$0=$2' | head -n1)
+  if [ -n  "$fname" ] ; then
+    v $fname
+  else
+    v "$HOME/Notes/$1.md"
+  fi
 }
-function _n { reply=($(ls /home/eugen/Dropbox/Notes)) }
+function _n { reply=($(ls $HOME/Notes)) }
 compctl -K _n n
 
 alias sudo="sudo -E"
@@ -137,7 +145,9 @@ alias gstl="git stash list"
 # alias bundle='$({bundler --version &>/dev/null || gem install bundler &>/dev/null} && echo bundle)'
 alias gemuninstall='gem list --no-version |xargs gem uninstall -ax'
 alias be="bundle exec"
-alias bi="bundle install"
+# install gems and regenerate ctags
+alias bi="bundle install && gem install gem-ripper-tags ripper-tags && gem ripper_tags"
+
 alias ra="bundle exec rails"
 alias rs="bundle exec rails server"
 
