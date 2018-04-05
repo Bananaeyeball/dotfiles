@@ -1,0 +1,3 @@
+nvim/modules/options.vim
+set backupdir
+set swapfiles dir
