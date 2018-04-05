@@ -140,6 +140,7 @@ alias rc2='ruby script/console'
 alias rdb='bundle exec rake db:migrate'
 alias rdbr='bundle exec rake db:rollback'
 alias be='bundle exec'
+alias ber='bundle exec rspec'
 
 #fidor aliases
 alias onboarding='dotenv bundle exec rails s -p 3007'
@@ -153,7 +154,8 @@ alias event_store='dotenv bundle exec rails s -p 7002'
 alias card_management='dotenv bundle exec rails s -p 7003'
 alias card_gateway='bundle exec rails s -p 7004'
 alias transaction_query_service='bundle exec rails s -p 3008'
-alias run_fidor='osascript ~/Workspace/fidor/epum_servers_env.scpt'
+alias run_fidor='osascript ~/workspace/fidor/epum_servers_env.scpt'
+alias pull_fidor='/bin/bash ~/.pull_fidor'
 
 # alias tmux=«TERM=screen-256color tmux»
 # alias tmux='tmux attach || tmux new' #save sessions
@@ -162,14 +164,13 @@ tmux_session=common
 zstyle ':completion:*' rehash true
 
 alias rs="bundle exec rails s"
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
 
 # export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 precmd() {
   # sets the tab title to current dir
