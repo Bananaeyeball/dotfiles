@@ -77,8 +77,8 @@ set scrolloff=1
 
 "if !isdirectory(backupDirectory) | silent exec '!mkdir -p ' . backupDirectory | endif
 set noundofile
-set backupdir=~/.vim/tmp/backup// " backups
-set directory=~/.vim/tmp/swap//   " swapfiles
+set backupdir=~/.config/nvim/tmp/backup// " backups
+set directory=~/.config/nvim/tmp/swap//   " swapfiles
 set backup
 "set swapfile
 " if has("persistent_undo")

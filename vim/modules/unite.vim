@@ -110,19 +110,19 @@ let g:unite_source_menu_menus.conf = {
 " ]
 
 let g:unite_source_menu_menus.conf.command_candidates = [
-        \ [ 'misc', 'split ~/.vim/modules/misc.vim' ],
-        \ [ 'unite', 'split ~/.vim/modules/unite.vim' ],
-        \ [ 'colors', 'split ~/.vim/modules/colors.vim' ],
-        \ [ 'helpers', 'split ~/.vim/modules/helpers.vim' ],
-        \ [ 'optins', 'split ~/.vim/modules/options.vim' ],
-        \ [ 'plugins', 'split ~/.vim/modules/plugins.vim' ],
-        \ [ 'statusline', 'split ~/.vim/modules/statusline.vim' ],
-        \ [ 'mappings', 'split ~/.vim/modules/mappings.vim' ],
-        \ [ 'bundles', 'split ~/.vim/modules/bundles.vim' ],
-        \ [ 'autocmds', 'split ~/.vim/modules/autocmds.vim' ],
-        \ [ 'completion', 'split ~/.vim/modules/completion.vim' ],
-        \ [ 'ncompletion', 'split ~/.vim/modules/ncompletion.vim' ],
-        \ [ 'smartinput', 'split ~/.vim/modules/smartinput.vim' ],
+        \ [ 'misc', 'split ~/.config/nvim/modules/misc.vim' ],
+        \ [ 'unite', 'split ~/.config/nvim/modules/unite.vim' ],
+        \ [ 'colors', 'split ~/.config/nvim/modules/colors.vim' ],
+        \ [ 'helpers', 'split ~/.config/nvim/modules/helpers.vim' ],
+        \ [ 'optins', 'split ~/.config/nvim/modules/options.vim' ],
+        \ [ 'plugins', 'split ~/.config/nvim/modules/plugins.vim' ],
+        \ [ 'statusline', 'split ~/.config/nvim/modules/statusline.vim' ],
+        \ [ 'mappings', 'split ~/.config/nvim/modules/mappings.vim' ],
+        \ [ 'bundles', 'split ~/.config/nvim/modules/bundles.vim' ],
+        \ [ 'autocmds', 'split ~/.config/nvim/modules/autocmds.vim' ],
+        \ [ 'completion', 'split ~/.config/nvim/modules/completion.vim' ],
+        \ [ 'ncompletion', 'split ~/.config/nvim/modules/ncompletion.vim' ],
+        \ [ 'smartinput', 'split ~/.config/nvim/modules/smartinput.vim' ],
       \ ]
 
 " call unite#custom#profile('default', 'context', {

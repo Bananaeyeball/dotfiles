@@ -1,5 +1,5 @@
 fu! s:load(module)
-  exec 'source ' fnameescape(expand('~/.vim/modules/' . a:module . '.vim'))
+  exec 'source ' fnameescape(expand('~/.config/nvim/modules/' . a:module . '.vim'))
 endfu
 
 call s:load('bundles')

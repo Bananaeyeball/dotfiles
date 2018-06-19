@@ -1,5 +1,5 @@
 let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#data_directory = '~/.vim/tmp/cache/neocomplete'
+let g:neocomplete#data_directory = '~/.config/nvim/tmp/cache/neocomplete'
 
 let g:neocomplete#enable_ignore_case = 1
 
