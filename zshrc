@@ -1,7 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 # ZSH_THEME="awesomepanda"
-ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # export DEFAULT_USER="v1rgul"
 export TERM="xterm-256color"
