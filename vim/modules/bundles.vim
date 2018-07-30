@@ -110,6 +110,7 @@ Plug 'c-brenn/phoenix.vim'
 Plug     'vim-ruby/vim-ruby'
 Plug     'tpope/vim-rbenv'
 Plug     'tpope/vim-rake'
+Plug     'leafgarland/typescript-vim'
 
 Plug 'thoughtbot/vim-rspec'
 Plug 'jgdavey/tslime.vim'
