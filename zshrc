@@ -8,8 +8,9 @@ export TERM="xterm-256color"
 ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_MODE='awesome-patched'
 
-POWERLEVEL9K_FOLDER_ICON=""
-POWERLEVEL9K_DIR_PATH_SEPARATOR= POWERLEVEL9K_FOLDER_ICON=""
+POWERLEVEL9K_DIR_PATH_SEPARATOR=
+POWERLEVEL9K_FOLDER_ICON=""
+POWERLEVEL9K_APPLE_ICON="\uf17c"
 POWERLEVEL9K_HOME_SUB_ICON="\uE12C"
 POWERLEVEL9K_DIR_PATH_SEPARATOR="  "
 POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR="  "
@@ -39,36 +40,11 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon root_indicator dir dir_writable vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status rbenv background_jobs time)
 POWERLEVEL9K_SHOW_CHANGESET=true
 
-# POWERLEVEL9K_DIR_OMIT_FIRST_CHARACTER=true
-# POWERLEVEL9K_STATUS_VERBOSE=false
-# POWERLEVEL9K_STATUS_OK_IN_NON_VERBOSE=true
-# POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND='black'
-# POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND='178'
-# POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND="cyan"
-# # POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND="178"
-# POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND="015"
-
-# POWERLEVEL9K_CONTEXT_TEMPLATE="%m"
-# POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S %d/%m/%Y}"
-
-# POWERLEVEL9K_VCS_STAGED_ICON='\u00b1'
-# POWERLEVEL9K_VCS_UNTRACKED_ICON='\u25CF'
-# POWERLEVEL9K_VCS_UNSTAGED_ICON='\u00b1'
-# POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='\u2193'
-# POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='\u2191'
-
-# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon ssh context root_indicator dir dir_writable vcs)
-# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status rbenv background_jobs time)
-
-# HYPHEN_INSENSITIVE="true"
 source $ZSH/oh-my-zsh.sh
 
 stty -ixon
 
 plugins=(git)
-
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/mario/.rvm/bin:/home/mario/.rvm/bin"
-
 
 export LANG=en_US.UTF-8
 
@@ -118,7 +94,6 @@ alias gco='git checkout'
 
 alias gl="git log --date-order --date=iso --graph --full-history --all --pretty=format:'%x08%x09%C(red)%h %C(cyan)%ad%x08%x08%x08%x08%x08%x08%x08%x08%x08%x08%x08%x08%x08%x08%x08 %C(bold blue)%<(10)%aN%C(reset) %C(reset)%<(70,trunc)%s%C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset) '"
 
-
 alias sudo apt-get install='sudo apt-get install -y'
 alias sudo apt-get add-apt-repository='sudo apt-get add-apt-repository -y'
 alias f=fg
@@ -141,21 +116,6 @@ alias rdbr='bundle exec rake db:rollback'
 alias be='bundle exec'
 alias ber='bundle exec rspec'
 
-#fidor aliases
-alias onboarding='dotenv bundle exec rails s -p 3007'
-alias adapter='dotenv bundle exec rails s -p 7000'
-alias banking='dotenv bundle exec rails s'
-alias backoffice='dotenv bundle exec rails s -p 3002'
-alias api_gateway='dotenv rackup -p 3004'
-alias frontend='dotenv bundle exec rails s -p 4000'
-alias transfer_cart='dotenv bundle exec rails s -p 7001'
-alias event_store='dotenv bundle exec rails s -p 7002'
-alias card_management='dotenv bundle exec rails s -p 7003'
-alias card_gateway='bundle exec rails s -p 7004'
-alias transaction_query_service='bundle exec rails s -p 3008'
-alias run_fidor='osascript ~/workspace/fidor/epum_servers_env.scpt'
-alias pull_fidor='/bin/bash ~/.pull_fidor'
-
 # alias tmux=«TERM=screen-256color tmux»
 # alias tmux='tmux attach || tmux new' #save sessions
 tmux_session=common
@@ -164,15 +124,27 @@ zstyle ':completion:*' rehash true
 
 alias rs="bundle exec rails s"
 
-# export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# for GOLANG installation
+export GOPATH=$HOME/workspace/go
+export PATH=$PATH:/usr/local/go/bin
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 precmd() {
   # sets the tab title to current dir
   echo -ne "\e]1;$PWD\a"
 }
 
+export NVM_DIR="/Users/fiodar_turliuk/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# python env
+eval "$(pyenv init -)"
+# For compilers to find zlib you may need to set:
+export LDFLAGS="-L/usr/local/opt/zlib/lib"
+export CPPFLAGS="-I/usr/local/opt/zlib/include"
+
+# For pkg-config to find zlib you may need to set:
+export PKG_CONFIG_PATH="/usr/local/opt/zlib/lib/pkgconfig"
