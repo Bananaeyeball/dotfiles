@@ -1,50 +1,22 @@
-# Path to your oh-my-zsh installation.
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
 export ZSH=$HOME/.oh-my-zsh
-# ZSH_THEME="awesomepanda"
-
-# export DEFAULT_USER="v1rgul"
-export TERM="xterm-256color"
-
-ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_MODE='awesome-patched'
-
-POWERLEVEL9K_DIR_PATH_SEPARATOR=
-POWERLEVEL9K_FOLDER_ICON=""
-POWERLEVEL9K_APPLE_ICON="\uf17c"
-POWERLEVEL9K_HOME_SUB_ICON="\uE12C"
-POWERLEVEL9K_DIR_PATH_SEPARATOR="  "
-POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR="  "
-POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR="  "
-POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
-
-POWERLEVEL9K_DIR_OMIT_FIRST_CHARACTER=true
-
-POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND='black'
-POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND='178'
-POWERLEVEL9K_NVM_BACKGROUND="238"
-POWERLEVEL9K_NVM_FOREGROUND="green"
-POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND="blue"
-POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND="015"
-
-POWERLEVEL9K_VCS_STAGED_ICON='\u00b1'
-POWERLEVEL9K_VCS_UNTRACKED_ICON='\u25CF'
-POWERLEVEL9K_VCS_UNSTAGED_ICON='\u00b1'
-POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='\u2193'
-POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='\u2191'
-
-POWERLEVEL9K_TIME_BACKGROUND='255'
-#POWERLEVEL9K_COMMAND_TIME_FOREGROUND='gray'
-
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon root_indicator dir dir_writable vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status rbenv background_jobs time)
-POWERLEVEL9K_SHOW_CHANGESET=true
-
-source $ZSH/oh-my-zsh.sh
 
 stty -ixon
 
 plugins=(git)
+tmux_session=common
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+export TERM="xterm-256color"
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+source $ZSH/oh-my-zsh.sh
 
 export LANG=en_US.UTF-8
 
@@ -116,10 +88,6 @@ alias rdbr='bundle exec rake db:rollback'
 alias be='bundle exec'
 alias ber='bundle exec rspec'
 
-# alias tmux=«TERM=screen-256color tmux»
-# alias tmux='tmux attach || tmux new' #save sessions
-tmux_session=common
-
 zstyle ':completion:*' rehash true
 
 alias rs="bundle exec rails s"
@@ -128,23 +96,69 @@ alias rs="bundle exec rails s"
 export GOPATH=$HOME/workspace/go
 export PATH=$PATH:/usr/local/go/bin
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-precmd() {
-  # sets the tab title to current dir
-  echo -ne "\e]1;$PWD\a"
-}
-
-export NVM_DIR="/Users/fiodar_turliuk/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
 # python env
-eval "$(pyenv init -)"
+# eval "$(pyenv init -)"
+# PYTHON_BIN_PATH="$(python3 -m site --user-base)/bin"
+# PATH="$PATH:$PYTHON_BIN_PATH"
 # For compilers to find zlib you may need to set:
 export LDFLAGS="-L/usr/local/opt/zlib/lib"
 export CPPFLAGS="-I/usr/local/opt/zlib/include"
 
 # For pkg-config to find zlib you may need to set:
 export PKG_CONFIG_PATH="/usr/local/opt/zlib/lib/pkgconfig"
+export PATH="/usr/local/opt/v8@3.15/bin:$PATH"
+
+# ITGlue docker commands
+export DEV_PATH=$HOME/workspace/dev/itglue-dev-env
+alias d-c="$DEV_PATH/compose.sh"
+alias naprodcron="ssh fturliuk@172.31.48.90"
+alias euprodcron="ssh fturliuk@10.164.20.31"
+railsc () {
+  container=${1:-app}
+  d-c exec $container bundle exec rails c
+}
+railsdb () {
+  container=${1:-app}
+  d-c exec $container bundle exec rails db
+}
+drspec () {
+  container=${1:-app}
+  d-c exec $container bundle exec rspec $2
+}
+dbash () {
+  container=${1:-app}
+  d-c exec $container /bin/bash
+}
+dlogs () {
+  container=${1:-app}
+  d-c logs -f $container
+}
+dsync () {
+  ( cd $DEV_PATH && command "docker-sync" "$@" )
+}
+dpry () {
+  container=${1:-app}
+  d-c logs $container | tail -n 30
+  docker attach $(d-c ps -q $container)
+}
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/texinfo/bin:$PATH"
+
+export PATH="$HOME/.local/bin:$PATH"
+export DOCKER_BUILDKIT=0
+export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source /Users/fiodar_turliuk/.docker/init-zsh.sh || true # Added by Docker Desktop
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
